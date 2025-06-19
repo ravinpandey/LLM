@@ -2,6 +2,12 @@ from corpus import Corpus
 from model import TurtleGPT
 from trainer import Trainer
 import torch
+import time
+
+
+# Start timing
+start_time = time.time()
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -16,7 +22,7 @@ LEARNING_RATE = 0.0005
 usage = ['inference','pretraining','SFT'][0]
 print(f"USAGE:{usage}")
 
-turtle_type = 'big-turtle'
+turtle_type = 'baby-turtle'
 vocab_size = 100
 corpus_file = "corpora/stories.txt"
 
@@ -46,6 +52,12 @@ if __name__ == '__main__':
                 print(f'    prompt: {prompt}')
                 print(f"completion: {completion.replace('æ', ' ')[len(prompt):]}")
                 print('---------------------')
+
+                # End timing
+                end_time = time.time()
+
+                # Print elapsed time
+                print(f"Time taken: {end_time - start_time:.2f} seconds")
 
 
     elif usage == 'pretraining':

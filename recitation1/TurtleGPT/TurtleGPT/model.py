@@ -148,8 +148,10 @@ class TransformerBlock(nn.Module):
         self.feedforward = lambda x: m.dropout(m.c_proj(m.Gelu(m.c_fc(x))))
 
     def forward(self, x):
-        x = x + self.attn(self.layer_norm_1(x))  # note residual connection
-        x = x + self.feedforward(self.layer_norm_2(x)) # another residual
+        #x = x + self.attn(self.layer_norm_1(x))  # note residual connection
+        #x = x + self.feedforward(self.layer_norm_2(x)) # another residual
+        x = self.attn(self.layer_norm_1(x))
+        x = self.feedforward(self.layer_norm_2(x))
         return x
 
 class NewGELU(nn.Module):
